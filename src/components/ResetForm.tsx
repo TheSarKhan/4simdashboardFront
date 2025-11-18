@@ -1,0 +1,52 @@
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as Yup from "yup";
+
+export default function ResetForm({
+  setOtpSent,
+}: {
+  setOtpSent: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  const validationSchema = Yup.object({
+    email: Yup.string().required("Enter email"),
+    password: Yup.string().required("Enter password"),
+  });
+  return (
+    <>
+      <h1 className="font-bold text-2xl mb-8">Şifrəni unutmusan?</h1>
+      <Formik
+        initialValues={{ email: "", password: "" }}
+        validationSchema={validationSchema}
+        onSubmit={(values) => {
+          setOtpSent(true);
+          console.log("Submitted:", values);
+        }}
+      >
+        {({ isSubmitting }) => (
+          <Form className="flex flex-col gap-4 w-full">
+            <div className="w-full">
+              <label className="font-bold mb-1 block">Email</label>
+              <Field
+                name="email"
+                type="email"
+                className="border border-gray-300 rounded-md px-2 py-2 w-full"
+              />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className="text-red-600 text-sm"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-[#306DD8] text-white py-3 rounded-lg w-full"
+            >
+              Kod göndər
+            </button>
+          </Form>
+        )}
+      </Formik>
+    </>
+  );
+}
