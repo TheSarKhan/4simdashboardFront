@@ -3,22 +3,24 @@ import * as Yup from "yup";
 
 export default function ResetForm({
   setOtpSent,
+  setEmail,
 }: {
   setOtpSent: React.Dispatch<React.SetStateAction<boolean>>;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
 }) {
   const validationSchema = Yup.object({
     email: Yup.string().required("Enter email"),
-    password: Yup.string().required("Enter password"),
   });
   return (
     <>
-      <h1 className="font-bold text-2xl mb-8">Şifrəni unutmusan?</h1>
+      <h1 className="font-bold text-3xl mb-8">Şifrəni unutmusan?</h1>
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email: "" }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
           setOtpSent(true);
           console.log("Submitted:", values);
+          setEmail(values.email);
         }}
       >
         {({ isSubmitting }) => (

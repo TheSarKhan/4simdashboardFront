@@ -9,7 +9,7 @@ export default function LoginForm() {
   });
   return (
     <>
-      <h1 className="font-bold text-2xl">Xoş gəlmisiniz</h1>
+      <h1 className="font-bold text-3xl">Xoş gəlmisiniz</h1>
       <span className="text-[#666] mt-2 mb-6 block">Hesabınıza daxil olun</span>
       <div className="w-full">
         <Formik
