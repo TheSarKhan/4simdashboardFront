@@ -5,8 +5,7 @@ import penIcon from "../assets/icons/pen.svg";
 import binIcon from "../assets/icons/bin.svg";
 import notebook from "../assets/notebook.png";
 import { useState } from "react";
-import AddDashboardModal from "../components/AddDashboardModal";
-import SimpleModal from "../components/AddDashboardModal";
+import AddDashboardForm from "../components/AddDashboardForm";
 
 const dashboards = [
   {
@@ -37,18 +36,18 @@ export default function Dashboard() {
       {isOpen && (
         <div
           className="fixed inset-0 flex justify-center items-center z-50"
-          onClick={() => setIsOpen(false)} // клик на фон закрывает модалку
+          onClick={() => setIsOpen(false)}
         >
           <div
             style={{ boxShadow: "0px 2px 8px 0px rgba(0,0,0,0.25)" }}
             className="bg-white rounded-lg flex flex-col gap-4 w-100"
-            onClick={(e) => e.stopPropagation()} // клик внутри окна не закрывает
+            onClick={(e) => e.stopPropagation()}
           >
             <div className="border-[#eee] border-b">
               <h2 className="text-xl font-bold p-6">Yeni dashboard</h2>
             </div>
-
-            <form className="flex flex-col p-6 gap-4">
+            <AddDashboardForm setIsOpen={setIsOpen} />
+            {/* <form className="flex flex-col p-6 gap-4">
               <div className="flex flex-col">
                 <label htmlFor="dashboardName">Dashboard adı</label>
                 <input
@@ -82,7 +81,7 @@ export default function Dashboard() {
               >
                 Yadda saxla
               </button>
-            </form>
+            </form> */}
           </div>
         </div>
       )}
