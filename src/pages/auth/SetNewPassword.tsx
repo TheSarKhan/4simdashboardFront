@@ -1,5 +1,5 @@
 import logo from "../../assets/login/logo.png";
-import UpdatePasswordForm from "../../components/UpdatePasswordForm";
+import UpdatePasswordForm from "../../components/forms/UpdatePasswordForm";
 
 export default function SetNewPassword() {
   return (

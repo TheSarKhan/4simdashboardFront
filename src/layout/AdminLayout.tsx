@@ -7,7 +7,7 @@ import rolesIcon from "../assets/layout/roles.svg";
 import profileIcon from "../assets/layout/profile.svg";
 import { Outlet } from "react-router-dom";
 
-export default function MainLayout() {
+export default function AdminLayout() {
   return (
     <div className="flex bg-[#f5f7fa] h-screen w-screen">
       <aside className="flex flex-col items-center w-[15vw] bg-white">

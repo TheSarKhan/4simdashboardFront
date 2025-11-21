@@ -1,35 +1,59 @@
-import { Link } from "react-router-dom";
-import plusIcon from "../assets/icons/plus.svg";
-import eyeIcon from "../assets/icons/dashboardEye.svg";
-import penIcon from "../assets/icons/pen.svg";
-import binIcon from "../assets/icons/bin.svg";
-import notebook from "../assets/notebook.png";
-import { useState } from "react";
-import AddDashboardForm from "../components/AddDashboardForm";
+import plusIcon from "../../assets/icons/plus.svg";
+import eyeIcon from "../../assets/icons/dashboardEye.svg";
+import penIcon from "../../assets/icons/pen.svg";
+import binIcon from "../../assets/icons/bin.svg";
+import downloadIcon from "../../assets/icons/download.svg";
+import notebook from "../../assets/notebook.png";
+import { useEffect, useState } from "react";
+import AddDashboardForm from "../../components/forms/AddDashboardForm";
 
-const dashboards = [
-  {
-    name: "Satış Analitikası",
-    embedLink: "#",
-    createdAt: "2024-11-10",
-    updatedAt: "2024-11-12",
-  },
-  {
-    name: "Müştəri Statistikası",
-    embedLink: "#",
-    createdAt: "2024-10-01",
-    updatedAt: "2024-11-01",
-  },
-  {
-    name: "Satış Göstəriciləri",
-    embedLink: "#",
-    createdAt: "2024-09-15",
-    updatedAt: "2024-10-20",
-  },
-];
+interface Dashboard {
+  name: string;
+  embedLink: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export default function Dashboard() {
   const [isOpen, setIsOpen] = useState(false);
+  const [dashboards, setDashboards] = useState<Dashboard[]>([]);
+
+  function handleKeyDown(event: KeyboardEvent) {
+    if (event.key === "Escape") {
+      setIsOpen(false);
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyDown]);
+
+  useEffect(() => {
+    setDashboards([
+      {
+        name: "Satış Analitikası",
+        embedLink: "#",
+        createdAt: "2024-11-10",
+        updatedAt: "2024-11-12",
+      },
+      {
+        name: "Müştəri Statistikası",
+        embedLink: "#",
+        createdAt: "2024-10-01",
+        updatedAt: "2024-11-01",
+      },
+      {
+        name: "Satış Göstəriciləri",
+        embedLink: "#",
+        createdAt: "2024-09-15",
+        updatedAt: "2024-10-20",
+      },
+    ]);
+  }, []);
 
   return (
     <>
@@ -47,41 +71,6 @@ export default function Dashboard() {
               <h2 className="text-xl font-bold p-6">Yeni dashboard</h2>
             </div>
             <AddDashboardForm setIsOpen={setIsOpen} />
-            {/* <form className="flex flex-col p-6 gap-4">
-              <div className="flex flex-col">
-                <label htmlFor="dashboardName">Dashboard adı</label>
-                <input
-                  id="dashboardName"
-                  className="border border-[#eee] rounded-lg p-2"
-                  type="text"
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <label htmlFor="embedLink">Tableau Embed link</label>
-                <input
-                  id="embedLink"
-                  className="border border-[#eee] rounded-lg p-2"
-                  type="text"
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <label htmlFor="iconFile">İkon</label>
-                <input
-                  id="iconFile"
-                  className="border border-[#eee] rounded-lg p-2"
-                  type="file"
-                />
-              </div>
-
-              <button
-                className="text-white flex justify-center h-12 rounded-xl items-center bg-linear-to-br from-[#2421DB] to-[#211EC5]"
-                onClick={() => setIsOpen(false)}
-              >
-                Yadda saxla
-              </button>
-            </form> */}
           </div>
         </div>
       )}
@@ -99,17 +88,26 @@ export default function Dashboard() {
         </div>
 
         <div className="shadowed-box">
-          <h1 className="font-bold text-3xl">Dashboard İdarəetməsi</h1>
+          <div className="flex justify-between items-center gap-4">
+            <h1 className="font-bold text-3xl w-[85%]">
+              Dashboard İdarəetməsi
+            </h1>
+
+            <button className="w-[15%] text-[#1E40AF] flex justify-center gap-2 h-14 rounded-xl items-center bg-[#DBEAFE] hover:cursor-pointer">
+              <img src={downloadIcon} alt="download" />
+              Məlumatları ixrac et
+            </button>
+          </div>
 
           <div className="flex mt-8 gap-4">
             <input
               type="text"
               placeholder="Dashboard axtar..."
-              className="w-[80%] border border-[#E5E5E5] rounded-xl px-2 outline-0"
+              className="w-[85%] border border-[#E5E5E5] rounded-xl px-2 outline-0"
             />
             <button
               onClick={() => setIsOpen(true)}
-              className="w-[20%] text-white flex justify-center h-14 rounded-xl items-center bg-linear-to-br from-[#2421DB] to-[#211EC5]"
+              className="w-[15%] text-white flex justify-center h-14 rounded-xl items-center bg-linear-to-br from-[#2421DB] to-[#211EC5] hover:cursor-pointer"
             >
               <img src={plusIcon} alt="plus" className="pr-8" /> Yeni Dashboard
             </button>
@@ -147,12 +145,9 @@ export default function Dashboard() {
                     <tr key={index} className="h-20">
                       <td className="px-4 py-2">{dashboard.name}</td>
                       <td className="px-4 py-2">
-                        <Link
-                          to={dashboard.embedLink}
-                          className="text-[#221FC7] border-b border-[#221FC7] p-2 font-bold text-[14px]"
-                        >
+                        <button className="bg-linear-to-br from-[#2421DC] to-[#201EC1] text-white px-5 py-3 font-bold rounded-lg hover:cursor-pointer">
                           Koda bax
-                        </Link>
+                        </button>
                       </td>
                       <td className="px-4 py-2 text-end text-[#666]">
                         {dashboard.createdAt}
@@ -162,13 +157,13 @@ export default function Dashboard() {
                       </td>
                       <td className="px-4 py-2 text-end">
                         <div className="flex justify-end items-center gap-6">
-                          <button>
+                          <button className="hover:cursor-pointer">
                             <img src={eyeIcon} alt="eye" />
                           </button>
-                          <button>
+                          <button className="hover:cursor-pointer">
                             <img src={penIcon} alt="pen" />
                           </button>
-                          <button>
+                          <button className="hover:cursor-pointer">
                             <img src={binIcon} alt="bin" />
                           </button>
                         </div>

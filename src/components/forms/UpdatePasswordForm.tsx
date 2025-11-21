@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import eyeIcon from "../assets/icons/passwordEye.svg";
+import eyeIcon from "../../assets/icons/passwordEye.svg";
 import { useState } from "react";
 
 export default function UpdatePasswordForm() {

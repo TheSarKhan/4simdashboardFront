@@ -1,7 +1,7 @@
 import { useState } from "react";
 import logo from "../../assets/login/logo.png";
-import ResetForm from "../../components/ResetForm";
-import OtpForm from "../../components/OtpForm";
+import ResetForm from "../../components/forms/ResetForm";
+import OtpForm from "../../components/forms/OtpForm";
 
 export default function ResetPassword() {
   const [otpSent, setOtpSent] = useState(false);
